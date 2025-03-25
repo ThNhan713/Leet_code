@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int countDays(int days, vector<vector<int>>& meetings) {
+        std::sort(meetings.begin(), meetings.end(), [](const std::vector<int>& a, const std::vector<int>& b) {
+        return a[0] < b[0]; 
+    });
+        vector<vector<int>> merged;
+        vector<int> current(2);
+        current[0] = meetings[0][0];
+        current[1] = meetings[0][1];
+        for (int i = 1; i < meetings.size(); i++){
+            if (meetings[i][0] > current[1]){
+                merged.push_back(current);
+                current[0] = meetings[i][0];
+                current[1] = meetings[i][1];
+                continue;
+            }
+            if (meetings[i][1] > current[1]){
+                current[1] = meetings[i][1];
+            } 
+   
+        }
+        merged.push_back(current);
+        int count = days;
+        for (int j = 0; j < merged.size(); j++){
+            count -= (merged[j][1] - merged[j][0] + 1);
+        }
+        return count;
+    }
+};
