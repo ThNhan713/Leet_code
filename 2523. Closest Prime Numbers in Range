@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool isPrime(int number) {
+    if (number <= 1) return false;
+    if (number <= 3) return true;
+    if (number % 2 == 0 || number % 3 == 0) return false;
+    for (int i = 5; i * i <= number; i += 6) {
+        if (number % i == 0 || number % (i + 2) == 0) return false;
+    }
+    return true;
+}
+    vector<int> closestPrimes(int left, int right) {
+        std::vector<int> primes;
+        for (int i = left; i <= right;i++){
+            if (isPrime(i)){
+                primes.push_back(i);
+            }
+        }
+        if (primes.size() < 2){
+            return {-1,-1};
+        }
+        int min_diff = primes[1] - primes[0];
+        vector<int> result = {primes[0], primes[1]};
+        for(int j = 1; j < primes.size() - 1;j++){
+            if(primes[j+1] - primes[j] < min_diff){
+                min_diff = primes[j+1] - primes[j];
+                result = {primes[j], primes[j+1]};
+            }
+        }
+        return result;
+    }
+};
