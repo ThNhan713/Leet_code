@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maximumCount(vector<int>& nums) {
+        int n = nums.size();
+        int left = 0;
+        int right = n;
+        while (left < right){
+            int mid = (right+ left) / 2;
+            if(nums[mid] > 0){
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        int pos_count = n - left;
+
+        int left1 = 0;
+        int right1 = n;
+        while(left1 < right1){
+            int mid = (right1 + left1) / 2;
+            if(nums[mid] < 0){
+                left1 = mid + 1;
+            } else {
+                right1 = mid;
+        }}
+        int neg_count = left1;
+        return max(pos_count, neg_count);
+    }
+};
